@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "./App";
-import { replaceCamelWithSpaces } from "./App";
+import { replaceCamelWithSpaces } from "./FirstExercise";
+import FirstExercise from "./FirstExercise";
 
 test("initial conditions", () => {
-  render(<App />);
+  render(<FirstExercise />);
 
   //Initial state of the button is enabled
   const colorButton = screen.getByRole("button", {
@@ -17,7 +17,7 @@ test("initial conditions", () => {
 });
 
 test("button turns blue when clicked", () => {
-  render(<App />);
+  render(<FirstExercise />);
   const colorButton = screen.getByRole("button", {
     name: "Change to Midnight Blue",
   });
@@ -27,7 +27,7 @@ test("button turns blue when clicked", () => {
 });
 
 test("checkbox disables button first click and enables it second click", () => {
-  render(<App />);
+  render(<FirstExercise />);
   const colorButton = screen.getByRole("button", {
     name: "Change to Midnight Blue",
   });
@@ -40,7 +40,7 @@ test("checkbox disables button first click and enables it second click", () => {
 });
 
 test("button is gray when disabled", () => {
-  render(<App />);
+  render(<FirstExercise />);
   const colorButton = screen.getByRole("button", {
     name: "Change to Midnight Blue",
   });
