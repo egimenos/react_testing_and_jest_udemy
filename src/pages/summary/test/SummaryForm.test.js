@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import SummaryForm from "../SummaryForm";
 
 describe("Terms and conditions checkbox button", () => {
@@ -19,10 +20,28 @@ describe("Terms and conditions checkbox button", () => {
     const button = screen.getByRole("button", { name: /confirm order/i });
     const checkbox = screen.getByRole("checkbox", { name: /terms and conditions/i });
 
-    fireEvent.click(checkbox);
+    userEvent.click(checkbox);
     expect(button).toBeEnabled();
 
-    fireEvent.click(checkbox);
+    userEvent.click(checkbox);
     expect(button).toBeDisabled();
+  });
+
+  test("popover responds to hover", async () => {
+    render(<SummaryForm />);
+    // popover starts hidden
+    const nullPopover = screen.queryByText(/no ice cream will actually be delivered/i);
+    expect(nullPopover).not.toBeInTheDocument();
+
+    // popover apears upon mouseover of checkbox label
+    const termsAndConditions = screen.getByText(/terms and conditions/i);
+    userEvent.hover(termsAndConditions);
+    const popover = screen.getByText("No ice cream will actually be delivered");
+    expect(popover).toBeInTheDocument();
+
+    // popover disapears when we mouse out
+
+    userEvent.unhover(termsAndConditions);
+    await waitForElementToBeRemoved(() => screen.queryByText(/no ice cream will actually be delivered/i));
   });
 });

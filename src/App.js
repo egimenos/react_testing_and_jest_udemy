@@ -1,5 +1,7 @@
+import SummaryForm from "./pages/summary/SummaryForm";
+
 function App() {
-  return <div>Hi</div>;
+  return <SummaryForm />;
 }
 
 export default App;
